@@ -1,13 +1,13 @@
-package com.globallogic.test.gl_ms_users;
+package com.globallogic.test.user;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GlMsUsersApplication {
+public class UsersServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GlMsUsersApplication.class, args);
+		SpringApplication.run(UsersServiceApplication.class, args);
 	}
 
 }

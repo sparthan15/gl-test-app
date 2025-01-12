@@ -1,4 +1,4 @@
-package com.globallogic.test.user.controller;
+package com.globallogic.test.user.controller.auth;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

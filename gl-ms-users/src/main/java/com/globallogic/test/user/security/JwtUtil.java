@@ -24,7 +24,7 @@ public interface JwtUtil {
 class JwtUtilImpl implements JwtUtil {
 
     private static final String MYSECRETKEY = "mysecretkey";
-    private static long ACCESS_TOKEN_VALIDITY = 60L * 30L * 1000;
+    private static final long ACCESS_TOKEN_VALIDITY = 60L * 30L * 1000;
     private final JwtParser jwtParser;
     private static final String TOKEN_HEADER = "Authorization";
     private static final String TOKEN_PREFIX = "Bearer ";
@@ -35,8 +35,7 @@ class JwtUtilImpl implements JwtUtil {
 
     public String createToken(User user) {
         Claims claims = Jwts.claims().setSubject(user.getEmail());
-        claims.put("firstName", user.getFirstName());
-        claims.put("lastName", user.getLastName());
+        claims.put("name", user.getName());
         Date tokenCreateTime = new Date();
         Date tokenValidity =
                 new Date(tokenCreateTime.getTime() + TimeUnit.MILLISECONDS.toMillis(ACCESS_TOKEN_VALIDITY));

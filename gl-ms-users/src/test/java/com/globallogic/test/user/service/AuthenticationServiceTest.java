@@ -1,7 +1,7 @@
 package com.globallogic.test.user.service;
 
-import com.globallogic.test.user.controller.LoginRequest;
-import com.globallogic.test.user.controller.LoginResponse;
+import com.globallogic.test.user.controller.auth.AuthRequest;
+import com.globallogic.test.user.controller.auth.AuthResponse;
 import com.globallogic.test.user.security.JwtUtil;
 import com.globallogic.test.user.persistence.User;
 import com.globallogic.test.user.persistence.UserRepository;
@@ -25,6 +25,9 @@ class AuthenticationServiceTest {
 
     public static final String EMAIL = "test@gmail.com";
     public static final String TOKEN = "xxxxxxx";
+    public static final LocalDate LAST_LOGIN = LocalDate.now();
+    public static final LocalDate CREATED_AT = LocalDate.now();
+    public static final UUID RANDOM_UUID = UUID.randomUUID();
     @InjectMocks
     private AuthenticationServiceImpl authenticationServiceImpl;
     @Mock
@@ -37,23 +40,25 @@ class AuthenticationServiceTest {
     @Test
     void testLogin() {
         User user = User.builder()
-                .id(UUID.randomUUID())
+                .id(RANDOM_UUID)
                 .email(EMAIL)
                 .active(true)
-                .createdAt(LocalDate.now())
-                .lastLogin(LocalDate.now())
-                .firstName("test")
-                .lastName("test2")
+                .createdAt(CREATED_AT)
+                .lastLogin(LAST_LOGIN)
+                .name("test")
                 .build();
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
                 .thenReturn(new UsernamePasswordAuthenticationToken(EMAIL, "test"));
         when(userRepository.findUserByEmail(EMAIL)).thenReturn(user);
         when(jwtUtil.createToken(user)).thenReturn(TOKEN);
-        LoginResponse response = authenticationServiceImpl.login(LoginRequest.create(EMAIL,
+        AuthResponse response = authenticationServiceImpl.login(AuthRequest.create(EMAIL,
                 "21234"));
         assertThat(response).isNotNull();
         assertThat(response.getId()).isEqualTo(user.getId().toString());
         assertThat(response.getToken()).isEqualTo(TOKEN);
+        assertThat(response.getLastLogin()).isEqualTo(LAST_LOGIN);
+        assertThat(response.getCreatedAt()).isEqualTo(CREATED_AT);
+        assertThat(response.getId()).isEqualTo(RANDOM_UUID.toString());
     }
 
 

@@ -16,9 +16,10 @@ public class TestUtil {
     public static final LocalDateTime LAST_LOGIN = LocalDateTime.now();
     public static final LocalDate CREATED_AT = LocalDate.now();
     public static final UUID RANDOM_UUID = UUID.randomUUID();
+    public static final String VALID_PASSWORD = "1A8asasddaa";
     public static final UserRequest userRequest = UserRequest.builder()
-            .email("test@gmail.com")
-            .password("123456")
+            .email(EMAIL)
+            .password(VALID_PASSWORD)
             .phones(Set.of(PhoneRequest.builder().number(1234L)
                     .cityCode(123)
                     .countryCode("1234")
@@ -49,8 +50,8 @@ public class TestUtil {
             .number(1L)
             .build();
     public static String userRequestPayload = "{\n" +
-            "    \"email\": \"carlosgamboas15@gmail.com\",\n" +
-            "    \"password\": \"1A8asasddaa\",\n" +
+            "    \"email\": \"" + EMAIL + "\",\n" +
+            "    \"password\": \""+VALID_PASSWORD+"\",\n" +
             "    \"name\": \"Carlos gamboa\",\n" +
             "    \"phones\":[\n" +
             "        { \n" +

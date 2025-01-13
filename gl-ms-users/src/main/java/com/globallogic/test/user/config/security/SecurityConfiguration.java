@@ -33,7 +33,6 @@ class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/auth/login").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/users").permitAll()
                 .anyRequest().authenticated()

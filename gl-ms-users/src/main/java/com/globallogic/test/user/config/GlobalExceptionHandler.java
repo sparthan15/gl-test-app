@@ -5,6 +5,7 @@ import com.globallogic.test.user.service.user.UserAlreadyExistException;
 import com.globallogic.test.user.service.user.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -38,6 +39,18 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(new ErrorResponse(errorDetail), HttpStatus.UNAUTHORIZED);
     }
 
+    @ExceptionHandler({AccessDeniedException.class})
+    public final ResponseEntity<ErrorResponse> handleAccessDeniedExceptionException(Exception ex,
+                                                                    WebRequest request) {
+        AccessDeniedException exception = (AccessDeniedException) ex;
+        ErrorDetail errorDetail = ErrorDetail.builder()
+                .timestamp(LocalDateTime.now())
+                .code(0)
+                .detail(exception.getMessage())
+                .build();
+        return new ResponseEntity<>(new ErrorResponse(errorDetail), HttpStatus.UNAUTHORIZED);
+    }
+
     @ExceptionHandler({UserAlreadyExistException.class})
     public final ResponseEntity<ErrorResponse> handleUserAlreadyExistsException(Exception ex,
                                                                                 WebRequest request) {
@@ -49,4 +62,5 @@ public class GlobalExceptionHandler {
                 .build();
         return new ResponseEntity<>(new ErrorResponse(errorDetail), HttpStatus.CONFLICT);
     }
+
 }

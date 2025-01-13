@@ -1,12 +1,25 @@
 # gl-ms-users
 this microservice is intended to support  adding new users and login a given user.
 
-# Requirements
+## Requirements
 - java 11
 - Springboot 2.5.14
 
+## How to test
+Go inside gl-ms-user project and run gradle test command
+```
+cd gl-ms-users
+./gradlew test
+```
+
+## How to run
+Inside the  gl-ms-user project, run gradle test command. Service will start up at port 8080
+```
+cd gl-ms-users
+./gradlew bootRun
+```
 ## Endpoints
-I have changed the requested endpoints to preserve REST conventions.
+I have changed the requested endpoints to preserve REST conventions and better encapsulate internal details.
 - Add user curl
 ````
 curl --location 'http://localhost:8080/users' \
@@ -40,3 +53,8 @@ curl --location 'http://localhost:8080/users' \
     "password": "1A8asasddaa"
 }''
 ```
+
+## Documentation
+Component diagram![component_diagram.png](src/main/resources/documentation/component_diagram.png)
+Sequence Diagram for Add user endpoint![sequence_diagram_addUser.png](src/main/resources/documentation/sequence_diagram_addUser.png)
+Sequence Diagram for login endpoint![sequence_diagram_login.png](src/main/resources/documentation/sequence_diagram_login.png)

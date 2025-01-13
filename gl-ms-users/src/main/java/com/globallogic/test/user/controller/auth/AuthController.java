@@ -1,6 +1,6 @@
 package com.globallogic.test.user.controller.auth;
 
-import com.globallogic.test.user.service.AuthenticationService;
+import com.globallogic.test.user.service.login.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

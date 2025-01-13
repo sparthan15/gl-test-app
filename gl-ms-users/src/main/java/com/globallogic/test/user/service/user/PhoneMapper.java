@@ -1,4 +1,4 @@
-package com.globallogic.test.user.service;
+package com.globallogic.test.user.service.user;
 
 import com.globallogic.test.user.controller.user.PhoneRequest;
 import com.globallogic.test.user.persistence.Phone;

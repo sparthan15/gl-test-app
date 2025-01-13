@@ -1,7 +1,7 @@
 package com.globallogic.test.user.controller.user;
 
 import com.globallogic.test.user.TestUtil;
-import com.globallogic.test.user.service.UserService;
+import com.globallogic.test.user.service.user.UserService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

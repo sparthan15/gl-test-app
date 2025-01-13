@@ -1,6 +1,6 @@
 package com.globallogic.test.user.controller.user;
 
-import com.globallogic.test.user.service.UserService;
+import com.globallogic.test.user.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

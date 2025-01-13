@@ -1,6 +1,6 @@
 package com.globallogic.test.user.controller.auth;
 
-import com.globallogic.test.user.service.AuthenticationService;
+import com.globallogic.test.user.service.login.AuthenticationService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

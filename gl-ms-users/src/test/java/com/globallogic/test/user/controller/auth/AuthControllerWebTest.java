@@ -2,9 +2,11 @@ package com.globallogic.test.user.controller.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.globallogic.test.user.TestUtil;
+import com.globallogic.test.user.config.ErrorResponse;
 import com.globallogic.test.user.controller.user.UserResponse;
 import com.globallogic.test.user.persistence.UserRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,11 +45,14 @@ class AuthControllerWebTest {
     }
 
     @BeforeEach
-    public void setUp() throws Exception {
-
+     void setUp() throws Exception {
         if (token == null) {
             setUserResponse();
         }
+    }
+    @AfterEach
+    void tearDown(){
+        userRepository.deleteAll();
     }
 
     @Test
@@ -73,24 +78,10 @@ class AuthControllerWebTest {
         Assertions.assertThat(result.getResponse().toString()).isNotNull();
     }
 
-    private void setUserResponse() throws Exception {
-
-            String payload = TestUtil.userRequestPayload;
-            MvcResult result = this.mockMvc.perform(post("/users")
-                            .contentType(APPLICATION_JSON)
-                            .content(payload))
-                    .andDo(print())
-                    .andExpect(status().isCreated())
-                    .andReturn();
-            token = objectMapper.readValue(result.getResponse().getContentAsByteArray(),
-                    UserResponse.class).getToken();
-
-    }
-
     @Test
     void given_userDoesNotExists_then_unauthorized() throws Exception {
         String payload = "{\n" +
-                "    \"email\": \"" + EMAIL + "\",\n" +
+                "    \"email\": \"test22@gmail.com \",\n" +
                 "    \"password\": \"" + VALID_PASSWORD + "\"\n" +
                 "}";
         MvcResult result = this.mockMvc.perform(post("/auth/login")
@@ -100,6 +91,21 @@ class AuthControllerWebTest {
                 .andDo(print())
                 .andExpect(status().isUnauthorized()).andReturn();
         Assertions.assertThat(result.getResponse().toString()).isNotNull();
+        ErrorResponse errorResponse = objectMapper.readValue(result.getResponse().getContentAsByteArray(), ErrorResponse.class);
+        assertThat(errorResponse.getErrorDetail()).isNotNull();
+    }
+
+    private void setUserResponse() throws Exception {
+
+        String payload = TestUtil.userRequestPayload;
+        MvcResult result = this.mockMvc.perform(post("/users")
+                        .contentType(APPLICATION_JSON)
+                        .content(payload))
+                .andDo(print())
+                .andExpect(status().isCreated())
+                .andReturn();
+        token = objectMapper.readValue(result.getResponse().getContentAsByteArray(),
+                UserResponse.class).getToken();
     }
 
 }

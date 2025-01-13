@@ -16,7 +16,6 @@ import org.springframework.security.web.header.writers.frameoptions.XFrameOption
 @Configuration
 @RequiredArgsConstructor
 class SecurityConfiguration {
-
     private final CustomUserDetailsService customUserDetailsService;
     private final JwtAuthorizationFilter jwtAuthorizationFilter;
 
@@ -43,7 +42,7 @@ class SecurityConfiguration {
                 .addFilterBefore(jwtAuthorizationFilter,
                         UsernamePasswordAuthenticationFilter.class)
                 .headers()
-                .addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN) );
+                .addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN));
         return http.build();
     }
 

@@ -92,7 +92,7 @@ class AuthControllerWebTest {
                 .andExpect(status().isUnauthorized()).andReturn();
         Assertions.assertThat(result.getResponse().toString()).isNotNull();
         ErrorResponse errorResponse = objectMapper.readValue(result.getResponse().getContentAsByteArray(), ErrorResponse.class);
-        assertThat(errorResponse.getErrorDetail()).isNotNull();
+        assertThat(errorResponse.getError()).isNotNull();
     }
 
     private void setUserResponse() throws Exception {

@@ -10,11 +10,11 @@ class ErrorDetailTest {
     @Test
     void testErrorResponse() {
         ErrorResponse errorResponse =
-                new ErrorResponse(ErrorDetail.builder()
+                new ErrorResponse(ErrorResponse.ErrorDetail.builder()
                         .timestamp(LocalDateTime.now())
                         .code(AbstractException.LOGIN_ERROR_EXCEPTION_CODE)
                         .detail("some detail")
                         .build());
-        Assertions.assertThat(errorResponse.getError().get("error")).isNotEmpty();
+        Assertions.assertThat(errorResponse.getError()).isNotEmpty();
     }
 }

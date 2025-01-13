@@ -53,6 +53,7 @@ curl --location 'http://localhost:8080/users' \
     "password": "1A8asasddaa"
 }''
 ```
+## Test coverage
 
 ## Documentation
 ### Component diagram![component_diagram.png](src/main/resources/documentation/component_diagram.png)

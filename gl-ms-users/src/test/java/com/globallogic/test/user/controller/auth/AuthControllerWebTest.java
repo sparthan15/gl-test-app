@@ -35,7 +35,8 @@ class AuthControllerWebTest {
     private ObjectMapper objectMapper;
     @Autowired
     private UserRepository userRepository;
-    private UserResponse userResponse;
+    private static String token;
+
     @Test
     void contextLoads() {
         assertThat(authController).isNotNull();
@@ -43,15 +44,16 @@ class AuthControllerWebTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        if(userResponse == null){
-            userResponse = getUserData();
+
+        if (token == null) {
+            setUserResponse();
         }
     }
 
     @Test
     void given_noPayloadSent_then_badRequest() throws Exception {
         this.mockMvc.perform(post("/auth/login")
-                        .header(AUTHORIZATION, format("Bearer %s", userResponse.getToken())))
+                        .header(AUTHORIZATION, format("Bearer %s",token)))
                 .andDo(print())
                 .andExpect(status().isBadRequest());
     }
@@ -65,22 +67,24 @@ class AuthControllerWebTest {
         MvcResult result = this.mockMvc.perform(post("/auth/login")
                         .contentType(APPLICATION_JSON)
                         .content(payload)
-                        .header(AUTHORIZATION, format("Bearer %s", userResponse.getToken())))
+                        .header(AUTHORIZATION, format("Bearer %s", token)))
                 .andDo(print())
                 .andExpect(status().isOk()).andReturn();
         Assertions.assertThat(result.getResponse().toString()).isNotNull();
     }
 
-    private UserResponse getUserData() throws Exception {
-        String payload = TestUtil.userRequestPayload;
-        MvcResult result = this.mockMvc.perform(post("/users")
-                        .contentType(APPLICATION_JSON)
-                        .content(payload))
-                .andDo(print())
-                .andExpect(status().isCreated())
-                .andReturn();
-        return objectMapper.readValue(result.getResponse().getContentAsByteArray(),
-                UserResponse.class);
+    private void setUserResponse() throws Exception {
+
+            String payload = TestUtil.userRequestPayload;
+            MvcResult result = this.mockMvc.perform(post("/users")
+                            .contentType(APPLICATION_JSON)
+                            .content(payload))
+                    .andDo(print())
+                    .andExpect(status().isCreated())
+                    .andReturn();
+            token = objectMapper.readValue(result.getResponse().getContentAsByteArray(),
+                    UserResponse.class).getToken();
+
     }
 
     @Test
@@ -91,7 +95,8 @@ class AuthControllerWebTest {
                 "}";
         MvcResult result = this.mockMvc.perform(post("/auth/login")
                         .contentType(APPLICATION_JSON)
-                        .content(payload))
+                        .content(payload)
+                .header(AUTHORIZATION, format("Bearer %s", token)))
                 .andDo(print())
                 .andExpect(status().isUnauthorized()).andReturn();
         Assertions.assertThat(result.getResponse().toString()).isNotNull();

@@ -10,6 +10,6 @@ public class LoginErrorException extends AbstractException {
 
     @Override
     public int getErrorCode() {
-        return 1;
+        return LOGIN_ERROR_EXCEPTION_CODE;
     }
 }

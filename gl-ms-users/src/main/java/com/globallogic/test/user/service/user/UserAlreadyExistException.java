@@ -10,6 +10,6 @@ public class UserAlreadyExistException extends AbstractException {
 
     @Override
     public int getErrorCode() {
-        return 2;
+        return USER_ALREADY_EXISTS_EXCEPTION_CODE;
     }
 }

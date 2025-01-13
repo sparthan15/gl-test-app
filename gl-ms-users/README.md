@@ -6,6 +6,7 @@ this microservice is intended to support  adding new users and login a given use
 - Springboot 2.5.14
 
 ## Endpoints
+I have changed the requested endpoints to preserve REST conventions.
 - Add user curl
 ````
 curl --location 'http://localhost:8080/users' \

@@ -53,7 +53,6 @@ class UserControllerWebTest {
 
     @Test
     void given_userAlreadyExists_then_conflict() throws Exception {
-        //Mockito.doThrow(UserAlreadyExistException.class).when(userService).addUser(Mockito.any());
         String payload = TestUtil.userRequestPayload;
         this.mockMvc.perform(post("/users")
                         .contentType(APPLICATION_JSON)

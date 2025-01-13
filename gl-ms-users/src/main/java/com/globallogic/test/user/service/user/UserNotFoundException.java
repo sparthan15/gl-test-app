@@ -10,6 +10,6 @@ public class UserNotFoundException extends AbstractException {
 
     @Override
     public int getErrorCode() {
-        return 3;
+        return NOT_FOUND_EXCEPTION_CODE;
     }
 }

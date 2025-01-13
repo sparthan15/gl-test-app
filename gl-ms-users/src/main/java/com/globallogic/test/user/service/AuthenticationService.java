@@ -2,7 +2,7 @@ package com.globallogic.test.user.service;
 
 import com.globallogic.test.user.controller.auth.AuthRequest;
 import com.globallogic.test.user.controller.auth.AuthResponse;
-import com.globallogic.test.user.security.JwtUtil;
+import com.globallogic.test.user.config.security.JwtUtil;
 import com.globallogic.test.user.persistence.User;
 import com.globallogic.test.user.persistence.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +33,7 @@ class AuthenticationServiceImpl implements AuthenticationService {
                 .id(user.getId().toString())
                 .email(email)
                 .token(token)
-                .createdAt(user.getCreatedAt())
+                .createdAt(user.getCreatedDate())
                 .lastLogin(user.getLastLogin())
                 .isActive(user.getActive())
                 .build();

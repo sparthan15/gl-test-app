@@ -1,10 +1,11 @@
 package com.globallogic.test.user.service;
 
+import com.globallogic.test.user.TestUtil;
 import com.globallogic.test.user.controller.auth.AuthRequest;
 import com.globallogic.test.user.controller.auth.AuthResponse;
-import com.globallogic.test.user.security.JwtUtil;
 import com.globallogic.test.user.persistence.User;
 import com.globallogic.test.user.persistence.UserRepository;
+import com.globallogic.test.user.config.security.JwtUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,9 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
-import java.time.LocalDate;
-import java.util.UUID;
-
+import static com.globallogic.test.user.TestUtil.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -23,11 +22,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class AuthenticationServiceTest {
 
-    public static final String EMAIL = "test@gmail.com";
-    public static final String TOKEN = "xxxxxxx";
-    public static final LocalDate LAST_LOGIN = LocalDate.now();
-    public static final LocalDate CREATED_AT = LocalDate.now();
-    public static final UUID RANDOM_UUID = UUID.randomUUID();
+
     @InjectMocks
     private AuthenticationServiceImpl authenticationServiceImpl;
     @Mock
@@ -39,14 +34,7 @@ class AuthenticationServiceTest {
 
     @Test
     void testLogin() {
-        User user = User.builder()
-                .id(RANDOM_UUID)
-                .email(EMAIL)
-                .active(true)
-                .createdAt(CREATED_AT)
-                .lastLogin(LAST_LOGIN)
-                .name("test")
-                .build();
+        User user = TestUtil.userEntity;
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
                 .thenReturn(new UsernamePasswordAuthenticationToken(EMAIL, "test"));
         when(userRepository.findUserByEmail(EMAIL)).thenReturn(user);

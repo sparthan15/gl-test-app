@@ -1,5 +1,6 @@
 package com.globallogic.test.user.controller.user;
 
+import com.globallogic.test.user.TestUtil;
 import com.globallogic.test.user.service.UserService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -9,8 +10,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Set;
-
 @ExtendWith(MockitoExtension.class)
 class UserControllerTest {
 
@@ -19,14 +18,7 @@ class UserControllerTest {
     @Mock
     private UserService userService;
 
-    private final UserRequest userRequest = UserRequest.builder()
-            .email("test@gmail.com")
-            .password("123456")
-            .phones(Set.of(Phone.builder().number(1234L)
-                    .cityCode(123)
-                    .countryCode("1234")
-                    .build()))
-            .build();
+    private final UserRequest userRequest = TestUtil.userRequest;
 
     @Test
     void testAddUser() {

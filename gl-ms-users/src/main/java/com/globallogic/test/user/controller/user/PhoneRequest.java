@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class Phone {
+public class PhoneRequest {
     private Long number;
     private Integer cityCode;
     private String countryCode;

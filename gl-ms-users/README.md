@@ -55,6 +55,6 @@ curl --location 'http://localhost:8080/users' \
 ```
 
 ## Documentation
-Component diagram![component_diagram.png](src/main/resources/documentation/component_diagram.png)
-Sequence Diagram for Add user endpoint![sequence_diagram_addUser.png](src/main/resources/documentation/sequence_diagram_addUser.png)
-Sequence Diagram for login endpoint![sequence_diagram_login.png](src/main/resources/documentation/sequence_diagram_login.png)
+### Component diagram![component_diagram.png](src/main/resources/documentation/component_diagram.png)
+### Sequence Diagram for Add user endpoint![sequence_diagram_addUser.png](src/main/resources/documentation/sequence_diagram_addUser.png)
+### Sequence Diagram for login endpoint![sequence_diagram_login.png](src/main/resources/documentation/sequence_diagram_login.png)

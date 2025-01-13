@@ -3,6 +3,7 @@ package com.globallogic.test.user.controller.user;
 import com.globallogic.test.user.persistence.Phone;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -16,7 +17,7 @@ public class UserResponse {
     private UserData user;
 
     @Builder
-    @Data
+    @Getter
     public static class UserData{
         private String id;
         private String name;

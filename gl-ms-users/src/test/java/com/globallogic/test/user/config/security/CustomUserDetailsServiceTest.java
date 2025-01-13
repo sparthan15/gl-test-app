@@ -2,6 +2,7 @@ package com.globallogic.test.user.config.security;
 
 import com.globallogic.test.user.TestUtil;
 import com.globallogic.test.user.persistence.UserRepository;
+import com.globallogic.test.user.service.user.UserNotFoundException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,11 +23,18 @@ class CustomUserDetailsServiceTest {
     private UserRepository userRepository;
 
     @Test
-    void testLoadUserByUserName(){
+    void testLoadUserByUserName() {
         Mockito.when(userRepository.findUserByEmail(TestUtil.EMAIL)).thenReturn(Optional.of(TestUtil.userEntity));
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(TestUtil.EMAIL);
         Assertions.assertThat(userDetails).isNotNull();
         Assertions.assertThat(userDetails.getUsername()).isEqualTo(TestUtil.userEntity.getEmail());
         Mockito.verify(userRepository).findUserByEmail(TestUtil.EMAIL);
+    }
+
+    @Test
+    void given_userDoesNotExists_then_throwException() {
+        Mockito.when(userRepository.findUserByEmail(TestUtil.EMAIL)).thenReturn(Optional.empty());
+        Assertions.assertThatThrownBy(() -> customUserDetailsService.loadUserByUsername(TestUtil.EMAIL))
+                .isInstanceOf(UserNotFoundException.class);
     }
 }

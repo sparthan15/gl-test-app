@@ -1,4 +1,4 @@
-package com.globallogic.test.user.security;
+package com.globallogic.test.user.config.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

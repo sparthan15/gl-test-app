@@ -46,4 +46,21 @@ public class TestUtil {
             .cityCode(1)
             .number(1L)
             .build();
+    public static String userRequestPayload = "{\n" +
+            "    \"email\": \"carlosgamboas15@gmail.com\",\n" +
+            "    \"password\": \"1A8asasddaa\",\n" +
+            "    \"name\": \"Carlos gamboa\",\n" +
+            "    \"phones\":[\n" +
+            "        { \n" +
+            "            \"number\": 12324,\n" +
+            "            \"cityCode\": 12,\n" +
+            "            \"countryCode\": \"12324\"\n" +
+            "        },\n" +
+            "         { \n" +
+            "            \"number\": 1234,\n" +
+            "            \"cityCode\": 1,\n" +
+            "            \"countryCode\": \"1234\"\n" +
+            "        }\n" +
+            "    ]\n" +
+            "}";
 }

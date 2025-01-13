@@ -5,13 +5,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("auth")
 @RequiredArgsConstructor
 class AuthController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/login")
-    public AuthResponse login(@RequestBody AuthRequest authRequest) {
+    public AuthResponse login( @RequestBody AuthRequest authRequest) {
         return authenticationService.login(authRequest);
     }
 }

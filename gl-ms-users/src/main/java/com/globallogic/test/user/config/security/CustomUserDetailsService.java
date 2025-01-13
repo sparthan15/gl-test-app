@@ -1,4 +1,4 @@
-package com.globallogic.test.user.security;
+package com.globallogic.test.user.config.security;
 
 import com.globallogic.test.user.persistence.User;
 import com.globallogic.test.user.persistence.UserRepository;

@@ -1,7 +1,9 @@
 package com.globallogic.test.user.persistence;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -14,6 +16,8 @@ import java.util.UUID;
 @Entity(name = "users")
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(generator = "uuid-hibernate-generator")

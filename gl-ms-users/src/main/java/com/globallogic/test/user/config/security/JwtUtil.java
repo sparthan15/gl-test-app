@@ -1,9 +1,10 @@
-package com.globallogic.test.user.security;
+package com.globallogic.test.user.config.security;
 
 import com.globallogic.test.user.persistence.User;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.security.sasl.AuthenticationException;
@@ -23,15 +24,12 @@ public interface JwtUtil {
 @RequiredArgsConstructor
 class JwtUtilImpl implements JwtUtil {
 
-    private static final String MYSECRETKEY = "mysecretkey";
+    @Value("${spring.security.secret-key}")
+    private String secretKey;
     private static final long ACCESS_TOKEN_VALIDITY = 60L * 30L * 1000;
-    private final JwtParser jwtParser;
     private static final String TOKEN_HEADER = "Authorization";
     private static final String TOKEN_PREFIX = "Bearer ";
 
-    public JwtUtilImpl() {
-        this.jwtParser = Jwts.parser().setSigningKey(MYSECRETKEY);
-    }
 
     public String createToken(User user) {
         Claims claims = Jwts.claims().setSubject(user.getEmail());
@@ -43,11 +41,12 @@ class JwtUtilImpl implements JwtUtil {
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(tokenValidity)
-                .signWith(SignatureAlgorithm.HS256, MYSECRETKEY)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
 
     private Claims parseJwtClaims(String token) {
+        JwtParser jwtParser = Jwts.parser().setSigningKey(secretKey);
         return jwtParser.parseClaimsJws(token).getBody();
     }
 

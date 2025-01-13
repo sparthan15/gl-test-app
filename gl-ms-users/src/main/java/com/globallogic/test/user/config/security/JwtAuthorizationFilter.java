@@ -1,4 +1,4 @@
-package com.globallogic.test.user.security;
+package com.globallogic.test.user.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;

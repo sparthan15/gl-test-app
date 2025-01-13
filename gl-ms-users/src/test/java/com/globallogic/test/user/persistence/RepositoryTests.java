@@ -1,15 +1,17 @@
 package com.globallogic.test.user.persistence;
 
+import com.globallogic.test.user.TestUtil;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
+@SpringBootTest
 class RepositoryTests {
 
     @Autowired
@@ -17,15 +19,29 @@ class RepositoryTests {
 
     @Test
     void addUser() {
+        User user = saveUser();
+        assertThat(userRepository.existsById(user.getId())).isTrue();
+        assertThat(user.getId()).isNotNull();
+    }
+
+    @Test
+    void testLoadUserByUserName() {
+        saveUser();
+        User user = userRepository.findUserByEmail(TestUtil.EMAIL);
+        Assertions.assertThat(user).isNotNull();
+    }
+
+    private User saveUser() {
         User user = userRepository.save(User.builder()
                 .active(true)
-                .email("test@gmail.com")
+                .email(TestUtil.EMAIL)
                 .name("test")
                 .lastLogin(LocalDateTime.now())
                 .createdDate(LocalDate.now())
                 .password("12345")
                 .build());
-        assertThat(userRepository.existsById(user.getId())).isTrue();
-        assertThat(user.getId()).isNotNull();
+        return user;
     }
+
+
 }

@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -27,12 +28,12 @@ class RepositoryTests {
     @Test
     void testLoadUserByUserName() {
         saveUser();
-        User user = userRepository.findUserByEmail(TestUtil.EMAIL);
+        Optional<User> user = userRepository.findUserByEmail(TestUtil.EMAIL);
         Assertions.assertThat(user).isNotNull();
     }
 
     private User saveUser() {
-        User user = userRepository.save(User.builder()
+        return  userRepository.save(User.builder()
                 .active(true)
                 .email(TestUtil.EMAIL)
                 .name("test")
@@ -40,7 +41,6 @@ class RepositoryTests {
                 .createdDate(LocalDate.now())
                 .password("12345")
                 .build());
-        return user;
     }
 
 

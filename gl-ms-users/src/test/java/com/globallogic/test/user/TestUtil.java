@@ -25,6 +25,12 @@ public class TestUtil {
                     .build()))
             .build();
 
+    public static Phone phoneEntity = Phone.builder()
+            .number(1L)
+            .countryCode("1234")
+            .id(1L)
+            .cityCode(1)
+            .build();
     public static User userEntity = User.builder()
             .id(RANDOM_UUID)
             .email(EMAIL)
@@ -33,14 +39,10 @@ public class TestUtil {
             .lastLogin(LAST_LOGIN)
             .password("12345")
             .name("test")
+            .phones(Set.of(phoneEntity))
             .build();
 
-    public static Phone phoneEntity = Phone.builder()
-            .number(1L)
-            .countryCode("1234")
-            .id(1L)
-            .cityCode(1)
-            .build();
+
     public static PhoneRequest phoneRequest = PhoneRequest.builder()
             .countryCode("1234")
             .cityCode(1)

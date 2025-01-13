@@ -11,6 +11,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Optional;
+
 @ExtendWith(MockitoExtension.class)
 class CustomUserDetailsServiceTest {
 
@@ -21,7 +23,7 @@ class CustomUserDetailsServiceTest {
 
     @Test
     void testLoadUserByUserName(){
-        Mockito.when(userRepository.findUserByEmail(TestUtil.EMAIL)).thenReturn(TestUtil.userEntity);
+        Mockito.when(userRepository.findUserByEmail(TestUtil.EMAIL)).thenReturn(Optional.of(TestUtil.userEntity));
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(TestUtil.EMAIL);
         Assertions.assertThat(userDetails).isNotNull();
         Assertions.assertThat(userDetails.getUsername()).isEqualTo(TestUtil.userEntity.getEmail());
